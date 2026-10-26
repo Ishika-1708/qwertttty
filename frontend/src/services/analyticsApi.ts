@@ -37,16 +37,26 @@ import { ENDPOINTS, PARAM_NAMES, REQUEST_TIMEOUT_MS, type EndpointKey } from "./
 /** Resolved lazily so a missing variable is reported through the UI, not as a crash at import time. */
 export function getApiBaseUrl(): string {
   const raw = import.meta.env.VITE_API_BASE_URL?.trim();
+
   if (!raw) {
     throw new ApiError(
       "config",
-      "VITE_API_BASE_URL is not set. Set it to the public URL of the analytics backend and rebuild.",
+      "VITE_API_BASE_URL is not set. Set it to the backend URL or /api and rebuild.",
       "config",
     );
   }
-  if (!/^https?:\/\//i.test(raw)) {
-    throw new ApiError("config", `VITE_API_BASE_URL must start with http:// or https:// (got "${raw}").`, "config");
+
+  const isAbsoluteUrl = /^https?:\/\//i.test(raw);
+  const isRelativeApiPath = /^\/api(?:\/|$)/.test(raw);
+
+  if (!isAbsoluteUrl && !isRelativeApiPath) {
+    throw new ApiError(
+      "config",
+      `VITE_API_BASE_URL must be an HTTP(S) URL or a relative /api path (got "${raw}").`,
+      "config",
+    );
   }
+
   return raw.replace(/\/+$/, "");
 }
 

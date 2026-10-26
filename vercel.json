@@ -8,30 +8,39 @@
     "api": {
       "root": ".",
       "framework": "fastapi",
-      "entrypoint": "backend.main:app",
-      "includeFiles": ["output/**"]
+      "entrypoint": "backend.main:app"
     }
   },
   "rewrites": [
     {
       "source": "/health",
-      "destination": { "service": "api" }
+      "destination": {
+        "service": "api"
+      }
     },
     {
       "source": "/docs",
-      "destination": { "service": "api" }
+      "destination": {
+        "service": "api"
+      }
     },
     {
       "source": "/openapi.json",
-      "destination": { "service": "api" }
+      "destination": {
+        "service": "api"
+      }
     },
     {
       "source": "/api/(.*)",
-      "destination": { "service": "api" }
+      "destination": {
+        "service": "api"
+      }
     },
     {
       "source": "/(.*)",
-      "destination": { "service": "web" }
+      "destination": {
+        "service": "web"
+      }
     }
   ]
 }

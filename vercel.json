@@ -3,15 +3,33 @@
   "services": {
     "web": {
       "root": "frontend/",
-      "framework": "vite"
+      "framework": "vite",
+      "rewrites": [
+        {
+          "source": "/(.*)",
+          "destination": "/index.html"
+        }
+      ]
     },
     "api": {
       "root": ".",
       "framework": "fastapi",
-      "entrypoint": "backend.main:app"
+      "entrypoint": "backend.main:app",
+      "rewrites": [
+        {
+          "source": "/api/:path(.*)?",
+          "destination": "/:path"
+        }
+      ]
     }
   },
   "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "api"
+      }
+    },
     {
       "source": "/health",
       "destination": {
@@ -26,12 +44,6 @@
     },
     {
       "source": "/openapi.json",
-      "destination": {
-        "service": "api"
-      }
-    },
-    {
-      "source": "/api/(.*)",
       "destination": {
         "service": "api"
       }

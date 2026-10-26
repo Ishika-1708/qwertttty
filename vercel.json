@@ -1,8 +1,37 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "functions": {
-    "backend/main.py": {
-      "includeFiles": "output/**"
+  "services": {
+    "web": {
+      "root": "frontend/",
+      "framework": "vite"
+    },
+    "api": {
+      "root": ".",
+      "framework": "fastapi",
+      "entrypoint": "backend.main:app",
+      "includeFiles": ["output/**"]
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/health",
+      "destination": { "service": "api" }
+    },
+    {
+      "source": "/docs",
+      "destination": { "service": "api" }
+    },
+    {
+      "source": "/openapi.json",
+      "destination": { "service": "api" }
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": { "service": "api" }
+    },
+    {
+      "source": "/(.*)",
+      "destination": { "service": "web" }
+    }
+  ]
 }

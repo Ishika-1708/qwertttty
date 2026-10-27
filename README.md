@@ -159,9 +159,9 @@ timestamps, missing forecasts/actuals, interval gaps, forecasts published just b
 
 ## Assumptions and known limitations
 
-* The brief did not define a cutoff schedule; the default is a day-ahead decision at `[09:00 UTC on D-1 – CONFIRM]`.
+* The brief did not define a cutoff schedule; the default is a day-ahead decision at 09:00 UTC on D-1.
 * WINDFOR is reported to be hourly and FUELHH half-hourly. Evaluation interval handling must match
-  (`[CONFIRM how your Module 1 aligns them]`). Verify against a live response.
+   Verify against a live response.
 * Generation is treated as MW; values outside a plausible range are quarantined, not clipped.
 * FUELHH values can be revised; re-run with the cache bypassed for final figures.
 * Results cover a single month and one set of decision rules; they are not a general statement about the forecast provider.

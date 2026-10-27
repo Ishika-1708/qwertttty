@@ -167,8 +167,7 @@ timestamps, missing forecasts/actuals, interval gaps, forecasts published just b
 * Results cover a single month and one set of decision rules; they are not a general statement about the forecast provider.
 
 ## Deployment
-
-The frontend includes a `Dockerfile`, `nginx.conf` and `vercel.json`. `[Describe how/where the API is hosted, if at all.]`
+The frontend is deployed on Vercel as a separate project, while the FastAPI backend is hosted independently at https://backend-qwert.vercel.app. The frontend communicates with the backend through REST API endpoints, configured using the VITE_API_BASE_URL environment variable. The backend exposes endpoints for health checks, metrics, intervals, and forecast history. CORS is configured to allow requests from the frontend's production domain.
 
 ## AI assistance
 

@@ -5,7 +5,6 @@ import { addDays, daysInclusive, defaultRange, isValidRange } from "../utils/for
 
 /** UI guard so a mistyped range cannot ask the backend for years of data. */
 const MAX_RANGE_DAYS = 92;
-const PRESETS = [7, 14, 30] as const;
 
 export function DateRangeFilter() {
   const { range, setRange } = useFilters();
@@ -56,27 +55,7 @@ export function DateRangeFilter() {
       <button type="submit" className="btn btn--primary" disabled={problem !== null || unchanged}>
         Apply
       </button>
-      <div className="field">
-        <span className="field__label">Quick range</span>
-        <div className="segmented" role="group" aria-label="Quick range">
-          <button
-            type="button"
-            aria-pressed={range.start === "2026-01-01" && range.end === "2026-01-31"}
-            onClick={() => setRange({ start: "2026-01-01", end: "2026-01-31" })}
-          >
-            Jan 2026 (Dataset)
-          </button>
-          {PRESETS.map((d) => {
-            const preset = defaultRange(d);
-            const active = preset.start === range.start && preset.end === range.end;
-            return (
-              <button key={d} type="button" aria-pressed={active} onClick={() => setRange(preset)}>
-                Last {d} days
-              </button>
-            );
-          })}
-        </div>
-      </div>
+
       {problem !== null && (
         <p role="alert" className="muted" style={{ flexBasis: "100%" }}>
           ⚠ {problem}
